@@ -28,6 +28,8 @@ return {
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
+      -- yaml dependency
+      'b0o/SchemaStore.nvim', -- Add this dependency
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -220,6 +222,20 @@ return {
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
+        yamlls = {
+          settings = {
+            yaml = {
+              schemaStore = {
+                -- You must disable built-in schemaStore support if you want to use
+                -- this plugin and its advanced options.
+                enable = false,
+                -- Avoid TypeError: Cannot read property 'url' of undefined
+                url = '',
+              },
+              schemas = require('schemastore').yaml.schemas(),
+            },
+          },
+        },
 
         lua_ls = {
           -- cmd = { ... },
