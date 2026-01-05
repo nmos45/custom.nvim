@@ -102,7 +102,7 @@ vim.g.have_nerd_font = false
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -454,3 +454,9 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+-- general make
+vim.keymap.set('n', '<leader>mg', function()
+  local template_path = '~/.config/nvim/templates/compileMakefile'
+  vim.cmd('make -f ' .. template_path)
+end, { desc = '[M]ake [G]lobal: Build current dir using template' })

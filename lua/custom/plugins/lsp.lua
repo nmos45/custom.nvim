@@ -19,7 +19,15 @@ return {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'mason-org/mason.nvim', opts = {} },
+      {
+        'mason-org/mason.nvim',
+        opts = {
+          registries = {
+            'github:mason-org/mason-registry',
+            'github:Crashdummyy/mason-registry',
+          },
+        },
+      },
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -162,6 +170,18 @@ return {
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
           end
+          local severity = vim.diagnostic.severity
+
+          vim.diagnostic.config {
+            signs = {
+              text = {
+                [severity.ERROR] = ' ',
+                [severity.WARN] = ' ',
+                [severity.HINT] = '󰠠 ',
+                [severity.INFO] = ' ',
+              },
+            },
+          }
         end,
       })
 
@@ -251,6 +271,7 @@ return {
             },
           },
         },
+        roslyn = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -277,6 +298,9 @@ return {
         automatic_installation = false,
         handlers = {
           function(server_name)
+            if server_name == 'roslyn' then
+              return
+            end
             local server = servers[server_name] or {}
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
@@ -287,5 +311,13 @@ return {
         },
       }
     end,
+  },
+  {
+    'seblyng/roslyn.nvim',
+    ---@module 'roslyn.config'
+    ---@type RoslynNvimConfig
+    opts = {
+      -- your configuration comes here; leave empty for default settings
+    },
   },
 }

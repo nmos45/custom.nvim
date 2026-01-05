@@ -1,0 +1,15 @@
+CXX      := clang++
+CXXFLAGS := -ggdb -pedantic-errors -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion -Werror -std=c++23
+
+# Auto-detect all .cpp files in current directory
+SRCS     := $(wildcard *.cpp)
+# Name the output based on the directory name
+TARGET   := $(shell basename $(CURDIR))
+
+all: $(TARGET)
+
+$(TARGET): $(SRCS)
+	$(CXX) $(CXXFLAGS) $(SRCS) -o $(TARGET)
+
+clean:
+	rm -f $(TARGET)
