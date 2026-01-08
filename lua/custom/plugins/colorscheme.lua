@@ -5,6 +5,7 @@ return {
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
+    name = 'tokyonight',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
       ---@diagnostic disable-next-line: missing-fields
@@ -21,14 +22,21 @@ return {
     end,
   },
 
-  -- {
-  --   'bluz71/vim-moonfly-colors',
-  --   name = 'moonfly',
-  --   lazy = false,
-  --   priority = 1000,
-  --
-  --   config = function()
-  --     vim.cmd.colorscheme 'moonfly'
-  --   end,
-  -- },
+  {
+    'bluz71/vim-moonfly-colors',
+    name = 'moonfly',
+    lazy = false,
+    priority = 1000,
+
+    -- config = function()
+    --   vim.cmd.colorscheme 'moonfly'
+    -- end,
+  },
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    config = function()
+      -- vim.cmd 'colorscheme rose-pine'
+    end,
+  },
 }

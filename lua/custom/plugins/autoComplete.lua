@@ -97,4 +97,15 @@ return {
       signature = { enabled = true },
     },
   },
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    -- Optional: This makes it work with Treesitter to avoid adding pairs in strings/comments
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('nvim-autopairs').setup {
+        check_ts = true, -- enable treesitter
+      }
+    end,
+  },
 }
