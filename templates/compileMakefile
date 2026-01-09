@@ -1,5 +1,5 @@
 CXX      := clang++
-CXXFLAGS := -ggdb -pedantic-errors -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion -Werror -std=c++23
+CXXFLAGS := -ggdb -pedantic-errors -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion -Werror -std=c++23 -I./source/includes
 
 # Auto-detect all .cpp files in current directory
 SRCS     := $(wildcard *.cpp)
