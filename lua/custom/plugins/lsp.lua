@@ -278,6 +278,7 @@ return {
           },
         },
         roslyn = {},
+        texlab = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -307,15 +308,17 @@ return {
         if name == 'roslyn' then
           goto continue
         end
+
         conf.capabilities = vim.tbl_deep_extend('force', {}, capabilities, conf.capabilities or {})
         vim.lsp.config(name, conf)
         vim.lsp.enable(name)
+
+        ::continue::
       end
 
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
       }
-      ::continue::
     end,
   },
   {
@@ -325,5 +328,14 @@ return {
     opts = {
       -- your configuration comes here; leave empty for default settings
     },
+  },
+  {
+    'lervag/vimtex',
+    lazy = false, -- we don't want to lazy load VimTeX
+    -- tag = "v2.15", -- uncomment to pin to a specific release
+    init = function()
+      -- VimTeX configuration goes here, e.g.
+      vim.g.vimtex_view_method = 'zathura'
+    end,
   },
 }
