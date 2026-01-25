@@ -234,6 +234,11 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
+vim.opt.shiftwidth = 4 -- Size of an indent
+vim.opt.tabstop = 4 -- Number of spaces tabs count for
+vim.opt.softtabstop = 4 -- Number of spaces tabs count for while editing
+vim.opt.expandtab = true -- Use spaces instead of tabs
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run

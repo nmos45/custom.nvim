@@ -279,6 +279,9 @@ return {
         },
         roslyn = {},
         texlab = {},
+        tailwindcss = {},
+        eslint = {},
+        prettierd = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -300,12 +303,17 @@ return {
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+      local excluded_servers = {
+        ['stylua'] = true,
+        ['prettierd'] = true,
+        ['roslyn'] = true,
+      }
       -- merge servers config
       for name, conf in pairs(servers) do
         -- This handles overriding only values explicitly passed
         -- by the server configuration above. Useful when disabling
         -- certain features of an LSP (for example, turning off formatting for ts_ls)
-        if name == 'roslyn' then
+        if excluded_servers[name] then
           goto continue
         end
 
@@ -330,12 +338,39 @@ return {
     },
   },
   {
-    'lervag/vimtex',
-    lazy = false, -- we don't want to lazy load VimTeX
-    -- tag = "v2.15", -- uncomment to pin to a specific release
-    init = function()
-      -- VimTeX configuration goes here, e.g.
-      vim.g.vimtex_view_method = 'zathura'
-    end,
+    'pmizio/typescript-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    opts = {
+      settings = {
+        -- spawn additional tsserver instance to calculate diagnostics on it
+        separate_diagnostic_server = true,
+        -- "change"|"insert_leave" determine when the client asks the server about diagnostic
+        publish_diagnostic_on = 'insert_leave',
+        -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
+        -- not exists then standard path resolution strategy is applied
+        tsserver_path = nil,
+        tsserver_format_options = {},
+        tsserver_file_preferences = {
+          includeCompletionsForModuleExports = true,
+          -- Shows you the types of injected services in constructors
+          includeInlayVariableTypeHints = true,
+        },
+        -- locale of all tsserver messages, supported locales you can find here:
+        -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
+        tsserver_locale = 'en',
+        -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
+        complete_function_calls = false,
+        include_completions_with_insert_text = true,
+        -- CodeLens
+        code_lens = 'off',
+        -- by default code lenses are displayed on all referencable values and for some of you it can
+        -- be too much this option reduce count of them by removing member references from lenses
+        disable_member_code_lens = true,
+        jsx_close_tag = {
+          enable = false,
+          filetypes = { 'javascriptreact', 'typescriptreact' },
+        },
+      },
+    },
   },
 }
