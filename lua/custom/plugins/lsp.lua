@@ -238,7 +238,6 @@ return {
           },
         },
         -- gopls = {},
-        -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -282,6 +281,30 @@ return {
         tailwindcss = {},
         eslint = {},
         prettierd = {},
+        basedpyright = {
+          analysis = {
+            typeCheckingMode = 'basic', -- Switch to "off" if you just want autocomplete without errors
+            diagnosticSeverityOverrides = {
+              reportAttributeAccessIssue = 'none',
+              reportOptionalMemberAccess = 'none',
+              reportUnusedImport = 'none', -- Ruff handles this
+              reportUnusedVariable = 'none', -- Ruff handles this
+            },
+          },
+        },
+        ruff = {
+          capabilities = {
+            hoverProvider = false,
+            documentFormattingProvider = false, -- Conform handles formatting
+          },
+        },
+        helm_ls = {},
+        terraformls = {},
+        markdown_oxide = {},
+        ['markdownlint-cli2'] = {},
+        tflint = {},
+        hadolint = {},
+        vale = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -307,7 +330,12 @@ return {
         ['stylua'] = true,
         ['prettierd'] = true,
         ['roslyn'] = true,
+        ['markdownlint-cli2'] = true,
+        ['tflint'] = true,
+        ['hadolint'] = true,
+        ['vale'] = true,
       }
+
       -- merge servers config
       for name, conf in pairs(servers) do
         -- This handles overriding only values explicitly passed
