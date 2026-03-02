@@ -465,3 +465,7 @@ vim.keymap.set('n', '<leader>mg', function()
   local template_path = '~/.config/nvim/templates/compileMakefile'
   vim.cmd('make -f ' .. template_path)
 end, { desc = '[M]ake [G]lobal: Build current dir using template' })
+
+-- vim.opt.cindent = true -- Enables specific C-style indenting logic
+-- vim.opt.smartindent = true -- Makes the editor "smarter" about new lines
+-- vim.opt.autoindent = true -- Copies indent from current line to the next

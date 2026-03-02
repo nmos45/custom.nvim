@@ -99,9 +99,9 @@ return {
           local ok, _ = pcall(vim.treesitter.start, args.buf)
 
           -- Optional: Enable Treesitter-based indentation
-          if ok then
-            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-          end
+          -- if ok then
+          --   vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          -- end
         end,
       })
     end,
