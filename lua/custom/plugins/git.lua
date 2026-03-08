@@ -1,7 +1,3 @@
--- Adds git related signs to the gutter, as well as utilities for managing changes
--- NOTE: gitsigns is already included in init.lua but contains only the base
--- config. This will add also the recommended keymaps.
-
 return {
   {
     'lewis6991/gitsigns.nvim',
@@ -61,9 +57,9 @@ return {
         -- end, { desc = 'git [D]iff against last commit' })
         -- Toggles
         --
-        map('n', '<leader>gb', gitsigns.blame, { desc = '[G]it [B]lame line' })
-        map('n', '<leader>glb', gitsigns.toggle_current_line_blame, { desc = '[G]it [B]lame line' })
-        -- map('n', '<leader>gD', gitsigns.preview_hunk_inline, { desc = '[T]oggle git show [D]eleted' })
+        map('n', '<leader>gb', gitsigns.blame, { desc = '[G]it [B]lame' })
+        map('n', '<leader>gl', gitsigns.toggle_current_line_blame, { desc = '[L]ine blame toggle' })
+        map('n', '<leader>gd', gitsigns.diffthis, { desc = '[d]iff against index' })
       end,
     },
   },
